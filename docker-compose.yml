@@ -1,26 +1,39 @@
 version: '3.7'
 
 services: 
-  django_project:
-    container_name: django_project
+  backend:
+    container_name: backend
     build: 
-      context: .
+      context: ./backend
     ports: 
       - "8000:8000"
+    restart: always
     env_file:
       - .env
     volumes:
       - static:/static
 
+  frontend:
+    container_name: frontend
+    build: 
+      context: ./frontend
+    volumes:
+      - frontend:/app/build
+
   nginx:
     container_name: nginx
-    build: ./nginx
+    build:
+      context: ./nginx
     volumes: 
       - static:/static
+      - frontend:/var/www/frontend
     ports:
       - "80:80"
     depends_on:
-      - django_project
+      - backend
+      - frontend
 
 volumes:
   static:
+  frontend:
+

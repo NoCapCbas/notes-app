@@ -1,15 +1,13 @@
-FROM python:latest
+FROM python:3.12
 
-RUN pip install --upgrade pip
-
-COPY ./requirements.txt . 
-RUN pip install -r requirements.txt
-
-COPY ./django_project /app
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-COPY ./entrypoint.sh /
+COPY . /app
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
 # Update and install dos2unix, to change entrypoing.sh file from CRLF to LF
 # Havn't found a better solution, windows hidden characters throws error on linux
 RUN apt-get update && \

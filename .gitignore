@@ -9,5 +9,5 @@ __pycache__/
 *.log
 
 # Environment variables
-# .env
+.env
 
