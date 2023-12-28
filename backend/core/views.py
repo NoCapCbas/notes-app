@@ -5,13 +5,16 @@ from rest_framework.response import Response
 from .serializers import UserRegisterSerializer, UserLoginSerializer, UserSerializer
 from rest_framework import permissions, status
 from .validations import custom_validation, validate_email, validate_password
-
+from rest_framework.exceptions import ValidationError
 
 class UserRegistration(APIView):
     permission_classes = (permissions.AllowAny,)
     def post(self, request):
         print('posting...')
-        clean_data = custom_validation(request.data)
+        try:
+            clean_data = custom_validation(request.data)
+        except ValidationError as e:
+            return Response(e.detail, status=status.HTTP_400_BAD_REQUEST)
         print('serializing...')
         serializer = UserRegisterSerializer(data=clean_data)
 
