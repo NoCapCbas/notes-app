@@ -1,12 +1,15 @@
 
 # Production
-## Run Django and Nginx with Docker Compose 
+## Run Django, ReactJS and Nginx with Docker Compose 
 
 This repo contains code to spin up a boilerplate Django project using docker-compose.
 Hosted locally using Gunicorn and Nginx containers.
 
 When using this boilerplate in production be sure to add .env to the .gitignore file, to escape version control!
 
+```bash
+docker compose up -d --build --force-recreate
+```
 
 ## Usage
 
@@ -49,43 +52,9 @@ Open a bash session in a running container:
 
 ## Endpoints
 
-- You will be able to reach the Django project at 0.0.0.0:80. This is the Nginx endpoint that interacts with Gunicorn at 0.0.0.0:8000
+- You will be able to reach the project at 0.0.0.0:80. This is the Nginx endpoint that interacts with Gunicorn at 0.0.0.0:8000
 
 - To validate that the static files are being served correctly, you can visit 0.0.0.0:80/admin. This endpoint will show you the admin page with the correct style used.
 Gunicorn does not serve static files, so if you visit 0.0.0.0:8000/admin - the admin page will pop up without the default style.
 
-# Development 
 
-## Open settings.py and verify SECRET_KEY and DEBUG values are set
-```python
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('django-insecure-gxycjyilrbh8ll78b+g#1o=o)ipdz90g4^lx$x73yi&fe(pk&^')
-
-# SECRET_KEY = os.getenv('SECRET_KEY') 
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-# DEBUG = os.getenv('DEBUG')
-```
-
-## Create python virtual environment
-```python
-python -m venv venv
-```
-## Enter the python virtual environment
-```python
-venv\Scripts\activate
-```
-## Install dependencies using requirements.txt
-```python
-pip install -r requirements.txt
-```
-## Navigate to django_project directory
-```python
-cd django_project
-```
-## Run server
-```python
-python manage.py runserver
-```
