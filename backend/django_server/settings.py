@@ -27,7 +27,6 @@ if RUNNING_LOCAL:
     SECRET_KEY = 'django-insecure-gxycjyilrbh8ll78b+g#1o=o)ipdz90g4^lx$x73yi&fe(pk&^'
     DEBUG = True
 else:
-
     SECRET_KEY = os.getenv('SECRET_KEY') 
     DEBUG = os.getenv('DEBUG')
 
@@ -95,9 +94,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-# User model 
-AUTH_USER_MODEL = 'core.AppUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (

@@ -1,15 +1,11 @@
-
 # Production
-## Run Django, ReactJS and Nginx with Docker Compose 
+## Run Django and Nginx with Docker Compose 
 
-This repo contains code to spin up a boilerplate Django project using docker-compose.
+This repo contains code to spin up a boilerplate Django/ReactJS project using docker-compose.
 Hosted locally using Gunicorn and Nginx containers.
 
 When using this boilerplate in production be sure to add .env to the .gitignore file, to escape version control!
 
-```bash
-docker compose up -d --build --force-recreate
-```
 
 ## Usage
 
@@ -52,9 +48,8 @@ Open a bash session in a running container:
 
 ## Endpoints
 
-- You will be able to reach the project at 0.0.0.0:80. This is the Nginx endpoint that interacts with Gunicorn at 0.0.0.0:8000
+- You will be able to reach the Django project at 0.0.0.0:80. This is the Nginx endpoint that interacts with Gunicorn at 0.0.0.0:8000
 
 - To validate that the static files are being served correctly, you can visit 0.0.0.0:80/admin. This endpoint will show you the admin page with the correct style used.
 Gunicorn does not serve static files, so if you visit 0.0.0.0:8000/admin - the admin page will pop up without the default style.
-
 
