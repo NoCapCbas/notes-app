@@ -1,12 +1,13 @@
-import './App.css';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Alert from 'react-bootstrap/Alert';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import LandingPage from './components/LandingPage';
+import Cards from './components/Cards';
+import Analytics from './components/Analytics';
+import Newsletter from './components/Newsletter';
+
 
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -19,7 +20,6 @@ const client = axios.create({
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState();
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -33,13 +33,16 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-hedaer">
-        <p>{message}</p>
-      </header>
+    <div>
+      <Navbar />
+      <LandingPage /> 
+      <Analytics />
+      <Newsletter />
+      <Cards />
+      <Footer />
     </div>
   );
 
-}
+};
 
 export default App;
