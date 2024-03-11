@@ -1,55 +1,31 @@
-# Production
-## Run Django and Nginx with Docker Compose 
+# Notes App using Django and ReactJS
 
-This repo contains code to spin up a boilerplate Django/ReactJS project using docker-compose.
-Hosted locally using Gunicorn and Nginx containers.
+## Dependencies
+- docker 
+- .env file
+.env file example
+```bash
+## do not put this file under version control!
+## so add this file in .gitignore in production, or keep repo private
+SECRET_KEY='django-insecure-gxyxjyidrbh8ll48b+g#1o=o)igdz90g4^lx$x73yi&fe(pk&^'
+DEBUG=True
 
-When using this boilerplate in production be sure to add .env to the .gitignore file, to escape version control!
+SUPERUSER_NAME='root'
+SUPERUSER_PASSWORD='root'
+SUPERUSER_EMAIL='root@root.com'
+```
 
+Once docker has been installed and a .env file exists in the project directory run the follwing 
+to spin up the project:
+```bash
+docker compose up --build -d
+```
 
-## Usage
+### Project Completion List
 
-Run services in the background:
-`docker-compose up -d`
+Backend
 
-Run services in the foreground:
-`docker-compose up --build`
+Frontend
 
-Inspect volume:
-`docker volume ls`
-and
-`docker volume inspect <volume name>`
-
-Prune unused volumes:
-`docker volume prune`
-
-View networks:
-`docker network ls`
-
-Bring services down:
-`docker-compose down`
-
-Open a bash session in a running container:
-`docker exec -it <container ID> /bin/bash`
-
-
-## Flow
-
-1. The docker-compose yaml file will first spin up the Gunicorn container that will run the Django project at port 8000
-
-2. The entrypoint to the *django_gunicorn* service is *entrypoint.sh*. This script will do a database migration and it will also collect the static files used by the Django project.
-
-3. The static files will be collected in *STATIC_ROOT*. This is the */static* directory in the container.
-
-4. This directory is mounted to a Docker volume on the local machine.
-
-5. The next container that will be spun is Nginx. The Dockerfile for this container is in the */nginx* folder. The Nginx configuration will interact with the Gunicorn service at port 8000 and it will also serve the static files in */static* also mounted to the same volume.
-
-
-## Endpoints
-
-- You will be able to reach the Django project at 0.0.0.0:80. This is the Nginx endpoint that interacts with Gunicorn at 0.0.0.0:8000
-
-- To validate that the static files are being served correctly, you can visit 0.0.0.0:80/admin. This endpoint will show you the admin page with the correct style used.
-Gunicorn does not serve static files, so if you visit 0.0.0.0:8000/admin - the admin page will pop up without the default style.
-
+Deployment
+- implement caddy instead on nginx
