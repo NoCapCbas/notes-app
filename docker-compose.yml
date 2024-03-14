@@ -10,8 +10,6 @@ services:
     restart: always
     env_file:
       - .env
-    volumes:
-      - static:/static
 
   frontend:
     container_name: frontend
@@ -25,7 +23,6 @@ services:
     build:
       context: ./nginx
     volumes: 
-      - static:/static
       - frontend:/var/www/frontend
     ports:
       - "80:80"
@@ -34,6 +31,5 @@ services:
       - frontend
 
 volumes:
-  static:
   frontend:
 
